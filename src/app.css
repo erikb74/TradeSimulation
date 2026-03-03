@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+/* ── CSS Custom Properties ──────────────────────────────────────────────── */
+:root {
+  --color-bg:           #1a1410;
+  --color-bg-panel:     #221c16;
+  --color-bg-raised:    #2e2419;
+  --color-text:         #e8d5a3;
+  --color-text-muted:   #9c8a6a;
+  --color-gold:         #c8961e;
+  --color-gold-bright:  #f0b830;
+  --color-surplus:      #4a7c59;
+  --color-shortage:     #8b3a3a;
+  --color-warning:      #9c7a28;
+  --color-trade:        #3a6b8b;
+  --color-luxury:       #6b3a8b;
+  --color-border:       #3d3020;
+}
+
+/* ── Reset — game fills the entire viewport ─────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 14px;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Scrollbars (panels scroll internally) ──────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-panel);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ── Typography ─────────────────────────────────────────────────────────── */
+.mono {
+  font-family: 'Courier New', 'Courier', monospace;
+}
+
+.text-gold    { color: var(--color-gold); }
+.text-surplus { color: var(--color-surplus); }
+.text-shortage{ color: var(--color-shortage); }
+.text-warning { color: var(--color-warning); }
+.text-muted   { color: var(--color-text-muted); }
+.text-trade   { color: var(--color-trade); }
+
+/* ── Panels ─────────────────────────────────────────────────────────────── */
+.panel {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+}
+
+.panel-raised {
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.btn {
+  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-raised);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  border-radius: 2px;
+  transition: background 0.1s;
+}
+.btn:hover {
+  background: var(--color-border);
+}
+.btn.active {
+  background: var(--color-gold);
+  color: var(--color-bg);
+  border-color: var(--color-gold-bright);
+}
+
+/* ── Tables ─────────────────────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+th {
+  text-align: left;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+  padding: 2px 4px;
+  font-weight: normal;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+td {
+  padding: 3px 4px;
+  border-bottom: 1px solid rgba(61, 48, 32, 0.5);
+}
+tr:hover td {
+  background: rgba(255,255,255,0.03);
+}
