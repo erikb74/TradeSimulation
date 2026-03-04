@@ -109,7 +109,7 @@ describe('deliverCaravan', () => {
 
     const caravan: Caravan = {
       id: 'c1', merchantId: 'm1', fromId: 'sA', toId: 'sB',
-      cargo: { grain: 20 }, progress: 1.0, returning: false, purchaseCost: 0,
+      cargo: { grain: 20 }, progress: 1.0, speed: 0.02, returning: false, purchaseCost: 0,
     }
     w.caravans['c1'] = caravan
 
@@ -125,7 +125,7 @@ describe('deliverCaravan', () => {
 
     const caravan: Caravan = {
       id: 'c1', merchantId: 'm1', fromId: 'sA', toId: 'sB',
-      cargo: { grain: 10 }, progress: 1.0, returning: false, purchaseCost: 0,
+      cargo: { grain: 10 }, progress: 1.0, speed: 0.02, returning: false, purchaseCost: 0,
     }
     w.caravans['c1'] = caravan
     const prevGold = w.merchants['m1'].gold
@@ -139,7 +139,7 @@ describe('deliverCaravan', () => {
     const w = makeWorld()
     const caravan: Caravan = {
       id: 'c1', merchantId: 'm1', fromId: 'sA', toId: 'sB',
-      cargo: { grain: 5 }, progress: 1.0, returning: false, purchaseCost: 0,
+      cargo: { grain: 5 }, progress: 1.0, speed: 0.02, returning: false, purchaseCost: 0,
     }
     w.caravans['c1'] = caravan
 
@@ -152,7 +152,7 @@ describe('deliverCaravan', () => {
     const w = makeWorld()
     const caravan: Caravan = {
       id: 'c1', merchantId: 'm1', fromId: 'sA', toId: 'sB',
-      cargo: { grain: 5 }, progress: 1.0, returning: false, purchaseCost: 0,
+      cargo: { grain: 5 }, progress: 1.0, speed: 0.02, returning: false, purchaseCost: 0,
     }
     w.caravans['c1'] = caravan
 

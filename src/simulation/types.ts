@@ -355,5 +355,8 @@ export type WorkerMessage =
   | { type: 'SNAPSHOT'; snapshot: StateSnapshot }
   | { type: 'CARAVAN_UPDATE'; caravans: Record<string, CaravanSnapshot> }
   | { type: 'IDLE_SUMMARY'; missedSlowTicks: number; events: GameEvent[] }
+  // Sent once after map generation/load — terrain is static so we don't repeat it each tick.
+  // terrainColors is a flat row-major array of CSS color strings: index = y*width + x
+  | { type: 'MAP_READY'; terrainColors: string[]; mapWidth: number; mapHeight: number }
   | { type: 'READY' }
   | { type: 'ERROR'; message: string }

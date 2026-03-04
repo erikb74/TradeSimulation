@@ -101,6 +101,22 @@ export function isLand(tile: MapTile): boolean {
 }
 
 /**
+ * Flatten a 2D terrain grid into a row-major array of CSS color strings.
+ * Used to send terrain to the main thread as a compact MAP_READY payload.
+ */
+export function flattenTerrainColors(grid: MapTile[][]): string[] {
+  const height = grid.length
+  const width = grid[0]?.length ?? 0
+  const colors: string[] = new Array(width * height)
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      colors[y * width + x] = TERRAIN_COLORS[grid[y][x].terrain]
+    }
+  }
+  return colors
+}
+
+/**
  * Get neighbors of a tile (4-directional).
  */
 export function getNeighbors(grid: MapTile[][], x: number, y: number): MapTile[] {

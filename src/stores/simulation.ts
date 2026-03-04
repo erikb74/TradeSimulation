@@ -1,4 +1,4 @@
-import { writable, derived } from 'svelte/store'
+import { writable } from 'svelte/store'
 import type { StateSnapshot, SimCommand, WorkerMessage } from '../simulation/types'
 
 // ── Worker instance ──────────────────────────────────────────────────────────
@@ -17,6 +17,13 @@ export const idleSummary = writable<{ missedSlowTicks: number; events: StateSnap
 
 /** Last worker error message, if any. */
 export const workerError = writable<string | null>(null)
+
+/**
+ * Terrain color data — sent once from worker on MAP_READY.
+ * Flat row-major array of CSS color strings; index = y * mapWidth + x.
+ * Null until the first MAP_READY is received.
+ */
+export const terrainData = writable<{ colors: string[]; width: number; height: number } | null>(null)
 
 // ── Worker communication ─────────────────────────────────────────────────────
 
@@ -54,6 +61,10 @@ export function initWorker(): void {
           if (!snap) return snap
           return { ...snap, caravans: msg.caravans }
         })
+        break
+
+      case 'MAP_READY':
+        terrainData.set({ colors: msg.terrainColors, width: msg.mapWidth, height: msg.mapHeight })
         break
 
       case 'IDLE_SUMMARY':

@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store'
-import type { GoodId, GameSpeed } from '../lib/constants'
+import type { GoodId } from '../simulation/types'
+import type { GameSpeed } from '../lib/constants'
 
 export type PanelTab = 'settlement' | 'routes' | 'ledger' | 'merchants'
 

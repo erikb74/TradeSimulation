@@ -12,6 +12,7 @@
 import { SimulationEngine } from './engine'
 import { generateMap, buildWorldState } from '../mapgen/index'
 import { loadFromIndexedDB, saveToIndexedDB } from './save'
+import { flattenTerrainColors, generateTerrain, DEFAULT_MAP_CONFIG } from '../mapgen/terrain'
 import type { SimCommand, WorkerMessage } from './types'
 import { FAST_TICK_MS, FAST_TICKS_PER_SLOW, MAX_OFFLINE_SLOW_TICKS, GAME_SPEEDS, type GameSpeed } from '../lib/constants'
 
@@ -69,6 +70,10 @@ async function handleNewGame(seed?: string): Promise<void> {
   engine = new SimulationEngine(world)
   await saveToIndexedDB(world)
 
+  // Send terrain colors once — they're static and don't need to be in every snapshot
+  const terrainColors = flattenTerrainColors(map.terrain)
+  postMessage({ type: 'MAP_READY', terrainColors, mapWidth: map.config.width, mapHeight: map.config.height })
+
   postMessage({ type: 'SNAPSHOT', snapshot: engine.serializeSnapshot() })
   postMessage({ type: 'READY' })
 
@@ -90,6 +95,11 @@ async function handleLoad(): Promise<void> {
   const cappedMissedTicks = Math.min(missedSlowTicks, MAX_OFFLINE_SLOW_TICKS)
 
   engine = new SimulationEngine(saved)
+
+  // Regenerate terrain image from seed (terrain is deterministic)
+  const terrainGrid = generateTerrain({ ...DEFAULT_MAP_CONFIG, seed: saved.seed, width: saved.mapWidth, height: saved.mapHeight })
+  const terrainColors = flattenTerrainColors(terrainGrid)
+  postMessage({ type: 'MAP_READY', terrainColors, mapWidth: saved.mapWidth, mapHeight: saved.mapHeight })
 
   if (cappedMissedTicks > 0) {
     engine.idleCatchup(cappedMissedTicks)
